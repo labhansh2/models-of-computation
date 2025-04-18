@@ -14,7 +14,7 @@ Modern hardware is an abstraction over Turing Machines in a certain way. Program
 
 #### TO DO
 
-- [ ] DFA
+- [x] DFA
 - [ ] NFA
 - [ ] PDA
 - [ ] DPDA-I

@@ -4,7 +4,9 @@
         "name": "Linux",
         "includePath": [
           "${workspaceFolder}/include",
-          "${workspaceFolder}/**"
+          "${workspaceFolder}/**",
+          "/opt/homebrew/include",      // or wherever your gtest is installed
+          "/opt/homebrew/include"      // for M1/M2 macs
         ],
         "compilerPath": "/usr/bin/g++",
         "cStandard": "c11",

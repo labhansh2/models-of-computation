@@ -10,14 +10,11 @@ using namespace std;
 
 struct PairHash {
     size_t operator()(const pair<string, char>& p) const noexcept {
-        return hash<string>{}(p.first) ^
-               (hash<char>{}(p.second) << 1);
+        return hash<string>{}(p.first) ^ (hash<char>{}(p.second) << 1);
     }
 };
 
-enum runMode {
-    NORMAL, VERBOSE
-};
+enum runMode { NORMAL, VERBOSE };
 
 class DFA {
    public:
@@ -49,8 +46,8 @@ class DFA {
      * Runs the current DFA on given sets of string in given mode
      * L : sets of string that uses the alphabet of the DFA
      * mode : runMode
-     *     nomal mode: doesn't print the path
-     *     verbose mode: printst the path
+     *     NORMAL : doesn't print the path
+     *     VERBOSE : printst the path
      */
     bool runMultiple(set<string> L, runMode mode);
 

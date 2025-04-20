@@ -10,10 +10,11 @@ using namespace std;
 
 struct PairHash {
     size_t operator()(const pair<string, char>& p) const noexcept {
-        return hash<string>{}(p.first) ^
-               (hash<char>{}(p.second) << 1);
+        return hash<string>{}(p.first) ^ (hash<char>{}(p.second) << 1);
     }
 };
+
+enum runMode { NORMAL, VERBOSE};
 
 class NFA {
    public:
@@ -22,11 +23,11 @@ class NFA {
     using Q_x_sigma = pair<State, Symbol>;
 
     /*
-     * Q (states): set of States in this DFA
-     * sigma (alphabet) : set of symbols recognized by this DFA
+     * Q (states): set of States in this NFA
+     * sigma (alphabet) : set of symbols recognized by this NFA
      * delta (transition function) : unordered map of each pair of cartesian
      * product of states and alphabet to set of State
-     * q_0 (start state) : start state of the DFA
+     * q_0 (start state) : start state of the NFA
      * F (final state) :
      */
     NFA(set<State> Q,
@@ -36,16 +37,18 @@ class NFA {
         State F);
 
     /*
-     * Runs the current DFA on given string in given mode
-     * w (input string) : string that uses the alphabet of the DFA
+     * Runs the current NFA on given string in given mode
+     * w (input string) : string that uses the alphabet of the NFA
      * mode [normal, verbose]
      */
-    bool run(string w, bool mode);
+    bool run(string w, runMode mode);
 
-    bool runMultiple(set<string> L, bool mode);
+    bool runMultiple(set<string> L, runMode mode);
+
+    void convert2DFA();
 
    private:
-    // internal memory of the DFA
+    // internal memory of the NFA
     set<State> Q_;
     set<Symbol> sigma_;
     unordered_map<Q_x_sigma, set<State>, PairHash> delta_;
@@ -53,7 +56,5 @@ class NFA {
     State F_;
 
     // external memory
-    State currentState;
-
-    void _convert2DFA();
+    set<State> currentState;
 };

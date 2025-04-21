@@ -1,22 +1,13 @@
+#include <functional>
 #include <iostream>
 #include <set>
 #include <stack>
 #include <tuple>
 #include <unordered_map>
-#include <functional>
+
+#include "utils.h"
 
 using namespace std;
-
-struct TupleHash {
-    std::size_t operator()(const std::tuple<std::string, char, char>& t) const {
-        std::size_t h1 = std::hash<std::string>{}(std::get<0>(t));
-        std::size_t h2 = std::hash<char>{}(std::get<1>(t));
-        std::size_t h3 = std::hash<char>{}(std::get<2>(t));
-        return h1 ^ (h2 << 1) ^ (h3 << 2); // bit-shifting for hash mixing
-    }
-};
-
-enum runMode { NORMAL, VERBOSE };
 
 class PDA {
    public:

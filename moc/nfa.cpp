@@ -1,12 +1,12 @@
 #include <iostream>
-#include <utility>
 #include <set>
+#include <utility>
 
 #include "nfa.h"
 
 using namespace std;
 
-// ## TO DO ## : add sanity checks to see if it is a valid DFA
+// ## TO DO ## : add sanity checks to see if it is a valid NFA
 NFA::NFA(set<State> Q,
          set<Symbol> sigma,
          unordered_map<Q_x_sigma, set<State>, PairHash> delta,
@@ -40,7 +40,8 @@ bool NFA::runMultiple(set<string> L, runMode mode) {
     bool flag = true;
     for (string w : L) {
         bool res = run(w, mode);
-        if (!res) flag = false;
+        if (!res)
+            flag = false;
     }
     return flag;
 }

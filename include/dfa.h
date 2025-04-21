@@ -4,17 +4,10 @@
 #include <set>
 #include <string>
 #include <unordered_map>
-#include <utility>
+
+#include "utils.h"
 
 using namespace std;
-
-struct PairHash {
-    size_t operator()(const pair<string, char>& p) const noexcept {
-        return hash<string>{}(p.first) ^ (hash<char>{}(p.second) << 1);
-    }
-};
-
-enum runMode { NORMAL, VERBOSE };
 
 class DFA {
    public:

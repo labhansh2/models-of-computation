@@ -1,7 +1,7 @@
-#include "dfa.h"
-
 #include <iostream>
 #include <utility>
+
+#include "dfa.h"
 
 // ## TO DO ## : add sanity checks to see if it is a valid DFA
 DFA::DFA(set<State> Q,
@@ -10,8 +10,8 @@ DFA::DFA(set<State> Q,
          State q_0,
          State F)
     : Q_(Q), sigma_(sigma), delta_(delta), q_0_(q_0), F_(F) {
-     currentState = q_0;
-    };
+    currentState = q_0;
+};
 
 bool DFA::run(string w, runMode mode) {
     for (char c : w) {

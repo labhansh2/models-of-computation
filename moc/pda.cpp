@@ -45,19 +45,18 @@ bool PDA::run(string w, runMode mode) {
 bool PDA::runMultiple(set<string> L, runMode mode) {
     bool flag = true;
     for (string w : L) {
-
         bool res = run(w, NORMAL);
 
         _reset();
-        if (!res) flag = false;
+        if (!res)
+            flag = false;
     }
 
     return flag;
 }
 
-void PDA::_reset(){
-
-    while (!PDA_stack.empty()){
+void PDA::_reset() {
+    while (!PDA_stack.empty()) {
         PDA_stack.pop();
     }
 

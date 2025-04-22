@@ -4,6 +4,13 @@
 
 using namespace std;
 
+// types for the project
+using State = string;
+using Symbol = char;
+using Q_x_sigma = pair<State, Symbol>;
+using Q_x_sigma_e_x_gamma = tuple<State, Symbol, Symbol>;
+using Q_x_gamma = tuple<State, string>;
+
 enum runMode { NORMAL, VERBOSE };
 
 struct PairHash {
@@ -20,3 +27,12 @@ struct TupleHash {
         return h1 ^ (h2 << 1) ^ (h3 << 2);  // bit-shifting for hash mixing
     }
 };
+
+bool hasState(set<State> currentStates, set<State> finalStates) {
+    for (State q : currentStates) {
+        if (finalStates.contains(q))
+            return true;
+    }
+
+    return false;
+}

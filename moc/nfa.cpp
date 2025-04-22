@@ -11,10 +11,10 @@ NFA::NFA(set<State> Q,
          set<Symbol> sigma,
          unordered_map<Q_x_sigma, set<State>, PairHash> delta,
          State q_0,
-         State F)
+         set<State> F)
     : Q_(Q), sigma_(sigma), delta_(delta), q_0_(q_0), F_(F) {
     // ### TO DO ### : Add states that are reached by an empty string
-    currentState = {q_0_};
+    currentStates = {q_0_};
 };
 
 void NFA::convert2DFA() {
@@ -22,18 +22,19 @@ void NFA::convert2DFA() {
 }
 
 bool NFA::run(string w, runMode mode) {
+
     for (Symbol c : w) {
         set<State> tempCurrStates;
-        for (State q : currentState) {
+        for (State q : currentStates) {
             set<State> res = delta_[{q, c}];
             for (State q_p : res) {
                 tempCurrStates.insert(q_p);
             }
         }
-        currentState = tempCurrStates;
+        currentStates = tempCurrStates;
     }
 
-    return currentState.contains(F_);
+    return hasState(currentStates, F_);
 }
 
 bool NFA::runMultiple(set<string> L, runMode mode) {

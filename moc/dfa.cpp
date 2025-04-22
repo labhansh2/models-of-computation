@@ -8,7 +8,7 @@ DFA::DFA(set<State> Q,
          set<Symbol> sigma,
          unordered_map<Q_x_sigma, State, PairHash> delta,
          State q_0,
-         State F)
+         set<State> F)
     : Q_(Q), sigma_(sigma), delta_(delta), q_0_(q_0), F_(F) {
     currentState = q_0;
 };
@@ -22,7 +22,7 @@ bool DFA::run(string w, runMode mode) {
         }
     }
 
-    return (currentState == F_);
+    return F_.contains(currentState);
 };
 
 bool DFA::runMultiple(set<string> L, runMode mode) {

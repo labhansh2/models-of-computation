@@ -43,7 +43,7 @@ int main() {
         {{"q2", '0'}, {"q1"}},       {{"q2", '1'}, {"q0", "q2"}}};
 
     State start_state = "q0";
-    State final_state = "q2";
+    set<State> final_state = {"q2"};
 
     NFA myNFA(states, alphabet, delta, start_state, final_state);
 

@@ -11,11 +11,6 @@ using namespace std;
 
 class PDA {
    public:
-    using State = string;
-    using Symbol = char;
-    using Q_x_sigma_e_x_gamma = tuple<State, Symbol, Symbol>;
-    using Q_x_gamma = tuple<State, string>;
-
     PDA(set<State> Q,
         set<Symbol> sigma,
         set<Symbol> gamma,

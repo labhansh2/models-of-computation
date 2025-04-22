@@ -12,9 +12,6 @@ using namespace std;
 
 class NFA {
    public:
-    using State = string;
-    using Symbol = char;
-    using Q_x_sigma = pair<State, Symbol>;
 
     /*
      * Q (states): set of States in this NFA
@@ -28,7 +25,7 @@ class NFA {
         set<Symbol> sigma,
         unordered_map<Q_x_sigma, set<State>, PairHash> delta,
         State q_0,
-        State F);
+        set<State> F);
 
     /*
      * Runs the current NFA on given string in given mode
@@ -47,8 +44,8 @@ class NFA {
     set<Symbol> sigma_;
     unordered_map<Q_x_sigma, set<State>, PairHash> delta_;
     State q_0_;
-    State F_;
+    set<State> F_;
 
     // external memory
-    set<State> currentState;
+    set<State> currentStates;
 };

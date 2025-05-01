@@ -38,6 +38,8 @@ class NFA {
 
     void convert2DFA();
 
+    void reset();
+
    private:
     // internal memory of the NFA
     set<State> Q_;

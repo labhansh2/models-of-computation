@@ -22,7 +22,6 @@ void NFA::convert2DFA() {
 }
 
 bool NFA::run(string w, runMode mode) {
-
     for (Symbol c : w) {
         set<State> tempCurrStates;
         for (State q : currentStates) {
@@ -43,6 +42,8 @@ bool NFA::runMultiple(set<string> L, runMode mode) {
         bool res = run(w, mode);
         if (!res)
             flag = false;
+
+        reset();
     }
     return flag;
 }

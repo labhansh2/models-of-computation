@@ -28,11 +28,11 @@ struct TupleHash {
     }
 };
 
-bool hasState(set<State> currentStates, set<State> finalStates) {
-    for (State q : currentStates) {
-        if (finalStates.contains(q))
-            return true;
-    }
+// bool hasState(set<State> currentStates, set<State> finalStates) {
+//     for (State q : currentStates) {
+//         if (finalStates.contains(q))
+//             return true;
+//     }
 
-    return false;
-}
+//     return false;
+// }

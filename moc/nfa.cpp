@@ -6,14 +6,32 @@
 
 using namespace std;
 
-// ## TO DO ## : add sanity checks to see if it is a valid NFA
 NFA::NFA(set<State> Q,
          set<Symbol> sigma,
          unordered_map<Q_x_sigma, set<State>, PairHash> delta,
          State q_0,
          set<State> F)
     : Q_(Q), sigma_(sigma), delta_(delta), q_0_(q_0), F_(F) {
-    // ### TO DO ### : Add states that are reached by an empty string
+    // ### TO DO ### : Add states that are reached by an empty string : do we
+    // even need to do this??
+
+    if (!Q.contains(q_0))
+        throw runtime_error("Invalid start state");
+    for (State f : F) {
+        if (!Q.contains(f))
+            throw runtime_error("Invalid final states");
+    }
+
+    for (auto it : delta) {
+        if (!Q.contains(it.first.first) || !sigma.contains(it.first.second))
+            throw runtime_error("Invalid Transition function");
+
+        for (State q : it.second) {
+            if (!Q.contains(q))
+                throw runtime_error("Invalid Transition function");
+        }
+    }
+
     currentStates = {q_0_};
 };
 
@@ -22,6 +40,7 @@ void NFA::convert2DFA() {
 }
 
 bool NFA::run(string w, runMode mode) {
+    // Can you optimize this?
     for (Symbol c : w) {
         set<State> tempCurrStates;
         for (State q : currentStates) {
@@ -33,7 +52,12 @@ bool NFA::run(string w, runMode mode) {
         currentStates = tempCurrStates;
     }
 
-    return hasState(currentStates, F_);
+    for (State q : currentStates) {
+        if (F_.contains(q))
+            return true;
+    }
+
+    return false;
 }
 
 bool NFA::runMultiple(set<string> L, runMode mode) {
@@ -46,4 +70,8 @@ bool NFA::runMultiple(set<string> L, runMode mode) {
         reset();
     }
     return flag;
+}
+
+void NFA::reset() {
+    currentStates = {q_0_};
 }

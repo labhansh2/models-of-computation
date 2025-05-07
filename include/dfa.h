@@ -28,7 +28,7 @@ class DFA {
     /*
      * Takes in a jff file to create a DFA object
      */
-    DFA(string jffFilePath);
+    // DFA(string jffFilePath);
     
     /*
      * Takes DFA as an encoded string to initialize

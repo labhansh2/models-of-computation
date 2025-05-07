@@ -28,6 +28,17 @@ class NFA {
         set<State> F);
 
     /*
+     * Takes in a jff file to create a NFA object
+     */
+    NFA(string jffFilePath);
+    
+    /*
+     * Takes NFA as an encoded string to initialize
+     * ### TO DO ### : Think about the most efficient way of encoding
+     */
+    // NFA(string encodedDFA);
+
+    /*
      * Runs the current NFA on given string in given mode
      * w (input string) : string that uses the alphabet of the NFA
      * mode [normal, verbose]

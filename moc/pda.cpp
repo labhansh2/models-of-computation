@@ -45,7 +45,7 @@ bool PDA::run(string w, runMode mode) {
 bool PDA::runMultiple(set<string> L, runMode mode) {
     bool flag = true;
     for (string w : L) {
-        bool res = run(w, NORMAL);
+        bool res = run(w, mode);
 
         _reset();
         if (!res)

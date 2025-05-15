@@ -15,16 +15,9 @@ Modern hardware is an abstraction over Turing Machines in a certain way. Program
 #### TO DO
 
 - [x] DFA
-- [ ] NFA
-- [ ] PDA
-- [ ] DPDA-I
-- [ ] NPDA-I
-- [ ] LBA
-- [ ] DPDA-II
-- [ ] DTM
-- [ ] NTM 
-- [ ] PTM
-- [ ] MTM
+- [ ] NFA (wip)
+- [ ] PDA (wip)
+- [ ] TM
 
 #### Useful Resources
 

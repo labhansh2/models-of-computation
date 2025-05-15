@@ -12,8 +12,6 @@ NFA::NFA(set<State> Q,
          State q_0,
          set<State> F)
     : Q_(Q), sigma_(sigma), delta_(delta), q_0_(q_0), F_(F) {
-    // ### TO DO ### : Add states that are reached by an empty string : do we
-    // even need to do this??
 
     if (!Q.contains(q_0))
         throw runtime_error("Invalid start state");
@@ -35,13 +33,24 @@ NFA::NFA(set<State> Q,
     currentStates = {q_0_};
 };
 
-void NFA::convert2DFA() {
-    set<State> tempCurrStates;
-}
+// void NFA::convert2DFA() {
+//     set<State> tempCurrStates;
+// }
 
 bool NFA::run(string w, runMode mode) {
-    // Can you optimize this?
+    if (mode == runMode::VERBOSE) {
+        cout << "Starting states: ";
+        for (const auto& state : currentStates) {
+            cout << state << " ";
+        }
+        cout << endl;
+    }
+
     for (Symbol c : w) {
+        if (mode == runMode::VERBOSE) {
+            cout << "Input: " << c << endl;
+        }
+
         set<State> tempCurrStates;
         for (State q : currentStates) {
             set<State> res = delta_[{q, c}];
@@ -50,26 +59,65 @@ bool NFA::run(string w, runMode mode) {
             }
         }
         currentStates = tempCurrStates;
+
+        if (mode == runMode::VERBOSE) {
+            cout << "State Transitions";
+            for (const auto& state : currentStates) {
+                cout << state << " ";
+            }
+            cout << endl;
+        }
     }
 
+    bool accepted = false;
     for (State q : currentStates) {
-        if (F_.contains(q))
-            return true;
+        if (F_.contains(q)) {
+            accepted = true;
+            break;
+        }
     }
 
-    return false;
+    if (mode == runMode::VERBOSE) {
+        cout << "Final states: ";
+        for (const auto& state : currentStates) {
+            cout << state << " ";
+        }
+        cout << endl;
+        cout << "Result: " << (accepted ? "accepted" : "rejected") << endl;
+    }
+
+    return accepted;
 }
 
 bool NFA::runMultiple(set<string> L, runMode mode) {
-    bool flag = true;
-    for (string w : L) {
-        bool res = run(w, mode);
-        if (!res)
-            flag = false;
+    bool allAccepted = true;
+    size_t total = L.size();
+    size_t accepted = 0;
 
+    for (const string& w : L) {
+        if (mode == runMode::VERBOSE) {
+            cout << "\nProcessing string: " << w << endl;
+            cout << "------------------------" << endl;
+        }
+
+        bool result = run(w, mode);
+        if (result) {
+            accepted++;
+        } else {
+            allAccepted = false;
+        }
         reset();
     }
-    return flag;
+
+    if (mode == runMode::VERBOSE) {
+        cout << "\nSummary:" << endl;
+        cout << "--------" << endl;
+        cout << "Total strings: " << total << endl;
+        cout << "Accepted: " << accepted << endl;
+        cout << "Rejected: " << (total - accepted) << endl;
+    }
+
+    return allAccepted;
 }
 
 void NFA::reset() {

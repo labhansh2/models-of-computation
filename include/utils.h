@@ -1,5 +1,8 @@
+#pragma once
+
 #include <iostream>
 #include <string>
+#include <tuple>
 #include <utility>
 
 using namespace std;
@@ -11,7 +14,7 @@ using Q_x_sigma = pair<State, Symbol>;
 using Q_x_sigma_e_x_gamma = tuple<State, Symbol, Symbol>;
 using Q_x_gamma = tuple<State, string>;
 
-enum runMode { NORMAL, VERBOSE };
+enum class runMode { NORMAL, VERBOSE };
 
 struct PairHash {
     size_t operator()(const pair<string, char>& p) const noexcept {
@@ -28,11 +31,16 @@ struct TupleHash {
     }
 };
 
-// bool hasState(set<State> currentStates, set<State> finalStates) {
-//     for (State q : currentStates) {
-//         if (finalStates.contains(q))
-//             return true;
-//     }
+struct DFAComponents {
+    set<State> Q;
+    set<Symbol> sigma;
+    unordered_map<Q_x_sigma, State, PairHash> delta;
+    State q_0;
+    set<State> F;
+};
 
-//     return false;
-// }
+/*
+ * Parse a JFF (JFLAP) file into DFA components
+ * filename: path to jffFile 
+ */
+DFAComponents parseJFFFile(const string& filename);

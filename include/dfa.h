@@ -15,8 +15,8 @@ class DFA {
      * Q (states): set of States in this DFA
      * sigma (alphabet) : set of symbols recognized by this DFA
      * delta (transition function) : unordered map of each element of cartesian
-     * product of states and alphabet to a State 
-     * q_0 (start state) : start state of the DFA 
+     * product of states and alphabet to a State
+     * q_0 (start state) : start state of the DFA
      * F (final states) : accepting states of the DFA
      */
     DFA(set<State> Q,
@@ -27,14 +27,9 @@ class DFA {
 
     /*
      * Takes in a jff file to create a DFA object
+     * Uses the parseJFFFile function from utils.h
      */
-    // DFA(string jffFilePath);
-    
-    /*
-     * Takes DFA as an encoded string to initialize
-     * ### TO DO ### : Think about the most efficient way of encoding
-     */
-    DFA(string encodedDFA);
+    explicit DFA(string jffFilePath);
 
     /*
      * Runs the DFA on a single input symbol
